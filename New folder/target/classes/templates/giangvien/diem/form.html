@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chấm điểm - QLDA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/giangvien-sidebar :: giangvien-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <h1>Chấm điểm</h1>
+                    <p><strong>Sinh viên:</strong> <span th:text="${diem.phanCong.sinhVien.hoTen}"></span></p>
+                    <p><strong>Đề tài:</strong> <span th:text="${diem.phanCong.deTai.tenDeTai}"></span></p>
+                    
+                    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+                    
+                    <form th:action="@{/giangvien/diem}" th:object="${diem}" method="post" class="form-container">
+                <input type="hidden" th:field="*{id}"/>
+                <input type="hidden" th:field="*{phanCong.id}"/>
+                
+                <div class="form-group">
+                    <label for="diemHuongDan">Điểm hướng dẫn (0-10)</label>
+                    <input type="number" id="diemHuongDan" th:field="*{diemHuongDan}" 
+                           min="0" max="10" step="0.1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="diemPhanBien">Điểm phản biện (0-10)</label>
+                    <input type="number" id="diemPhanBien" th:field="*{diemPhanBien}" 
+                           min="0" max="10" step="0.1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="diemHoiDong">Điểm hội đồng (0-10)</label>
+                    <input type="number" id="diemHoiDong" th:field="*{diemHoiDong}" 
+                           min="0" max="10" step="0.1">
+                </div>
+                
+                <div class="form-group">
+                    <label>Điểm trung bình</label>
+                    <input type="text" value="" 
+                           th:value="${diem.tinhDiemTrungBinh() != null ? diem.tinhDiemTrungBinh() : 'Chưa tính được'}"
+                           readonly class="readonly-field">
+                    <small class="form-text">Điểm trung bình được tính tự động: (Hướng dẫn + Phản biện + Hội đồng) / 3</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nhanXet">Nhận xét</label>
+                    <textarea id="nhanXet" th:field="*{nhanXet}" rows="5"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <a th:href="@{/giangvien/diem}" class="btn btn-secondary">Quay lại</a>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+

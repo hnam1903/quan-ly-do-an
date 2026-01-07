@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý phân công - QLDA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/admin-sidebar :: admin-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <div class="page-header">
+                        <h1>Quản lý phân công</h1>
+                        <a th:href="@{/admin/phancong/new}" class="btn btn-primary">Thêm phân công</a>
+                    </div>
+                    
+                    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+                    
+                    <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Sinh viên</th>
+                        <th>Đề tài</th>
+                        <th>GV Hướng dẫn</th>
+                        <th>GV Phản biện</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="phanCong : ${phanCongs}">
+                        <td th:text="${phanCong.id}"></td>
+                        <td th:text="${phanCong.sinhVien.hoTen}"></td>
+                        <td th:text="${phanCong.deTai.tenDeTai}"></td>
+                        <td th:text="${phanCong.giangVienHuongDan != null ? phanCong.giangVienHuongDan.hoTen : 'Chưa có'}"></td>
+                        <td th:text="${phanCong.giangVienPhanBien != null ? phanCong.giangVienPhanBien.hoTen : 'Chưa có'}"></td>
+                        <td>
+                            <a th:href="@{/admin/phancong/{id}/edit(id=${phanCong.id})}" class="btn btn-sm btn-secondary">Sửa</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+

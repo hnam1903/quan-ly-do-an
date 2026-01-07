@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phân công - QLDA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/admin-sidebar :: admin-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <h1 th:text="${phanCong.id != null ? 'Sửa phân công' : 'Thêm phân công'}"></h1>
+                    
+                    <form th:action="${phanCong.id != null ? '/admin/phancong/' + phanCong.id : '/admin/phancong'}" 
+                          th:object="${phanCong}" method="post" class="form-container">
+                <div class="form-group">
+                    <label for="sinhVien">Sinh viên *</label>
+                    <select id="sinhVien" th:field="*{sinhVien}" required>
+                        <option value="">-- Chọn sinh viên --</option>
+                        <option th:each="sv : ${sinhViens}" 
+                                th:value="${sv.id}" 
+                                th:text="${sv.hoTen + ' (' + sv.username + ')'}"></option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="deTai">Đề tài *</label>
+                    <select id="deTai" th:field="*{deTai}" required>
+                        <option value="">-- Chọn đề tài --</option>
+                        <option th:each="dt : ${deTais}" 
+                                th:value="${dt.id}" 
+                                th:text="${dt.tenDeTai}"></option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="giangVienHuongDan">Giảng viên hướng dẫn</label>
+                    <select id="giangVienHuongDan" th:field="*{giangVienHuongDan}">
+                        <option value="">-- Chọn giảng viên --</option>
+                        <option th:each="gv : ${giangViens}" 
+                                th:value="${gv.id}" 
+                                th:text="${gv.hoTen}"></option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="giangVienPhanBien">Giảng viên phản biện</label>
+                    <select id="giangVienPhanBien" th:field="*{giangVienPhanBien}">
+                        <option value="">-- Chọn giảng viên --</option>
+                        <option th:each="gv : ${giangViens}" 
+                                th:value="${gv.id}" 
+                                th:text="${gv.hoTen}"></option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <a th:href="@{/admin/phancong}" class="btn btn-secondary">Hủy</a>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/admin-sidebar :: admin-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <h1>Dashboard</h1>
+                    <p>Xin chào, <span th:text="${admin.hoTen}"></span>!</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Tổng người dùng</h3>
+                            <p class="stat-number" th:text="${totalUsers}">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Tổng đề tài</h3>
+                            <p class="stat-number" th:text="${totalDeTai}">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Tổng phân công</h3>
+                            <p class="stat-number" th:text="${totalPhanCong}">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+

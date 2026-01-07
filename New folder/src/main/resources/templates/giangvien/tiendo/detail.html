@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết tiến độ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/giangvien-sidebar :: giangvien-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <h1>Tiến độ đồ án</h1>
+                    <p><strong>Sinh viên:</strong> <span th:text="${phanCong.sinhVien.hoTen}"></span></p>
+                    <p><strong>Đề tài:</strong> <span th:text="${phanCong.deTai.tenDeTai}"></span></p>
+                    
+                    <div class="page-header">
+                        <h2>Lịch sử tiến độ</h2>
+                        <a th:href="@{/giangvien/tiendo/phancong/{id}/new(id=${phanCong.id})}" class="btn btn-primary">Thêm tiến độ</a>
+                    </div>
+                    
+                    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+                    
+                    <div class="tien-do-list">
+                <div th:each="tienDo : ${tienDos}" class="tien-do-card">
+                    <div class="tien-do-header">
+                        <strong th:text="${tienDo.noiDung}"></strong>
+                        <span class="date" th:text="${#temporals.format(tienDo.createdAt, 'dd/MM/yyyy HH:mm')}"></span>
+                    </div>
+                    <p th:if="${tienDo.nhanXet != null && !tienDo.nhanXet.isEmpty()}" th:text="${'Nhận xét: ' + tienDo.nhanXet}"></p>
+                    </div>
+                </div>
+                
+                <a th:href="@{/giangvien/tiendo}" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+

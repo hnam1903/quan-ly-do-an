@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đề tài</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/giangvien-sidebar :: giangvien-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <div class="page-header">
+                        <h1>Quản lý đề tài</h1>
+                        <a th:href="@{/giangvien/detai/new}" class="btn btn-primary">Thêm đề tài</a>
+                    </div>
+                    
+                    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+                    
+                    <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên đề tài</th>
+                        <th>Số lượng SV</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="deTai : ${deTais}">
+                        <td th:text="${deTai.id}"></td>
+                        <td th:text="${deTai.tenDeTai}"></td>
+                        <td th:text="${deTai.soLuongSinhVien}"></td>
+                        <td>
+                            <span class="badge" th:text="${deTai.trangThai.name()}"></span>
+                        </td>
+                        <td>
+                            <a th:href="@{/giangvien/detai/{id}/edit(id=${deTai.id})}" class="btn btn-sm btn-secondary">Sửa</a>
+                            <form th:action="@{/giangvien/detai/{id}/delete(id=${deTai.id})}" method="post" style="display: inline;" 
+                                  onsubmit="return confirm('Bạn có chắc muốn xóa?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+

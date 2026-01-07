@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết đề tài - QLDA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/sinhvien-sidebar :: sinhvien-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <h1 th:text="${deTai.tenDeTai}"></h1>
+                    
+                    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+                    <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+                    
+                    <div class="de-tai-detail">
+                <p><strong>Giảng viên:</strong> <span th:text="${deTai.giangVien.hoTen}"></span></p>
+                <p><strong>Số lượng sinh viên:</strong> <span th:text="${deTai.soLuongSinhVien}"></span></p>
+                <p th:if="${deTai.congNghe != null}"><strong>Công nghệ:</strong> <span th:text="${deTai.congNghe}"></span></p>
+                
+                <div th:if="${deTai.moTa != null}">
+                    <h3>Mô tả</h3>
+                    <p th:text="${deTai.moTa}"></p>
+                </div>
+                
+                <div th:if="${deTai.yeuCau != null}">
+                    <h3>Yêu cầu</h3>
+                    <p th:text="${deTai.yeuCau}"></p>
+                </div>
+                
+                <div th:if="${daDangKy}">
+                    <div class="alert alert-info">
+                        <p>Bạn đã đăng ký đề tài này.</p>
+                        <p><strong>Trạng thái:</strong> <span th:text="${dangKy.trangThai.name()}"></span></p>
+                    </div>
+                </div>
+                
+                    <div th:unless="${daDangKy}">
+                        <form th:action="@{/sinhvien/detai/{id}/dangky(id=${deTai.id})}" method="post">
+                            <button type="submit" class="btn btn-primary">Đăng ký đề tài</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <a th:href="@{/sinhvien/detai}" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </div>
+    </div>
+    </main>
+</body>
+</html>
+
+
+

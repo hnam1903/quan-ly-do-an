@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết đăng ký - QLDA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/giangvien-sidebar :: giangvien-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <h1 th:text="${'Đăng ký đề tài: ' + deTai.tenDeTai}"></h1>
+                    
+                    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+                    
+                    <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Sinh viên</th>
+                        <th>Mã SV</th>
+                        <th>Lớp</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="dangKy : ${dangKys}">
+                        <td th:text="${dangKy.sinhVien.hoTen}"></td>
+                        <td th:text="${dangKy.sinhVien.maSinhVien}"></td>
+                        <td th:text="${dangKy.sinhVien.lop}"></td>
+                        <td>
+                            <span class="badge" th:text="${dangKy.trangThai.name()}"></span>
+                        </td>
+                        <td>
+                            <form th:if="${dangKy.trangThai.name() == 'DANG_CHO'}" 
+                                  th:action="@{/giangvien/dangky/{id}/duyet(id=${dangKy.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-sm btn-success">Duyệt</button>
+                            </form>
+                            <form th:if="${dangKy.trangThai.name() == 'DANG_CHO'}" 
+                                  th:action="@{/giangvien/dangky/{id}/tuchoi(id=${dangKy.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-sm btn-danger">Từ chối</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    
+                    <a th:href="@{/giangvien/dangky}" class="btn btn-secondary">Quay lại</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+

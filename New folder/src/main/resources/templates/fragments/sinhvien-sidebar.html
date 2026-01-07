@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <aside class="quick-actions" th:fragment="sinhvien-sidebar">
+        <h2>Menu</h2>
+        <div class="action-buttons">
+            <a th:href="@{/sinhvien}" class="btn btn-primary">Dashboard</a>
+            <a th:href="@{/sinhvien/profile}" class="btn btn-primary">Thông tin cá nhân</a>
+            <a th:href="@{/sinhvien/detai}" class="btn btn-primary">Đăng ký đề tài</a>
+            <a th:href="@{/sinhvien/dangky}" class="btn btn-primary">Theo dõi đăng ký</a>
+            <a th:href="@{/sinhvien/tiendo}" class="btn btn-primary">Theo dõi tiến độ</a>
+            <a th:href="@{/sinhvien/diem}" class="btn btn-primary">Xem điểm</a>
+        </div>
+    </aside>
+</body>
+</html>
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duyệt đăng ký</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/giangvien-sidebar :: giangvien-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <h1>Duyệt đăng ký đề tài</h1>
+                    
+                    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+                    
+                    <div class="de-tai-list">
+                <div th:each="deTai : ${deTais}" class="de-tai-card">
+                    <h3 th:text="${deTai.tenDeTai}"></h3>
+                    <p><strong>Trạng thái:</strong> <span th:text="${deTai.trangThai.name()}"></span></p>
+                    <a th:href="@{/giangvien/dangky/detai/{id}(id=${deTai.id})}" class="btn btn-primary">Xem đăng ký</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+

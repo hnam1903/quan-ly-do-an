@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theo dõi tiến độ - QLDA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/sinhvien-sidebar :: sinhvien-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <h1>Theo dõi tiến độ</h1>
+                    
+                    <div th:if="${phanCongs.isEmpty()}" class="alert alert-info">
+                        Bạn chưa có phân công nào.
+                    </div>
+                    
+                    <div th:unless="${phanCongs.isEmpty()}">
+                <div th:each="phanCong : ${phanCongs}" class="phancong-card">
+                    <h3 th:text="${phanCong.deTai.tenDeTai}"></h3>
+                    <p><strong>Giảng viên hướng dẫn:</strong> 
+                       <span th:text="${phanCong.giangVienHuongDan != null ? phanCong.giangVienHuongDan.hoTen : 'Chưa có'}"></span>
+                    </p>
+                    <a th:href="@{/sinhvien/tiendo/phancong/{id}(id=${phanCong.id})}" class="btn btn-primary">Xem tiến độ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin cá nhân - QLDA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/sinhvien-sidebar :: sinhvien-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <h1>Thông tin cá nhân</h1>
+                    
+                    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+                    
+                    <form th:action="@{/sinhvien/profile}" th:object="${user}" method="post" class="form-container">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" th:field="*{username}" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Mật khẩu mới (để trống nếu không đổi)</label>
+                    <input type="password" id="password" th:field="*{password}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="hoTen">Họ tên *</label>
+                    <input type="text" id="hoTen" th:field="*{hoTen}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" th:field="*{email}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="soDienThoai">Số điện thoại</label>
+                    <input type="text" id="soDienThoai" th:field="*{soDienThoai}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="lop">Lớp</label>
+                    <input type="text" id="lop" th:field="*{lop}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="chuyenNganh">Chuyên ngành</label>
+                    <input type="text" id="chuyenNganh" th:field="*{chuyenNganh}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="maSinhVien">Mã sinh viên</label>
+                    <input type="text" id="maSinhVien" th:field="*{maSinhVien}">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+

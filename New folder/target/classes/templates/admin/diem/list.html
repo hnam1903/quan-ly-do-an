@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý điểm - QLDA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/admin-sidebar :: admin-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <h1>Quản lý điểm</h1>
+                    
+                    <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Sinh viên</th>
+                        <th>Đề tài</th>
+                        <th>Điểm Hướng dẫn</th>
+                        <th>Điểm Phản biện</th>
+                        <th>Điểm Hội đồng</th>
+                        <th>Điểm TB</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="phanCong : ${phanCongs}">
+                        <td th:text="${phanCong.sinhVien.hoTen}"></td>
+                        <td th:text="${phanCong.deTai.tenDeTai}"></td>
+                        <td th:with="diem=${diemService.getDiemByPhanCong(phanCong)}">
+                            <span th:if="${diem.isPresent() && diem.get().diemHuongDan != null}" 
+                                  th:text="${diem.get().diemHuongDan}"></span>
+                            <span th:unless="${diem.isPresent() && diem.get().diemHuongDan != null}">Chưa có</span>
+                        </td>
+                        <td th:with="diem=${diemService.getDiemByPhanCong(phanCong)}">
+                            <span th:if="${diem.isPresent() && diem.get().diemPhanBien != null}" 
+                                  th:text="${diem.get().diemPhanBien}"></span>
+                            <span th:unless="${diem.isPresent() && diem.get().diemPhanBien != null}">Chưa có</span>
+                        </td>
+                        <td th:with="diem=${diemService.getDiemByPhanCong(phanCong)}">
+                            <span th:if="${diem.isPresent() && diem.get().diemHoiDong != null}" 
+                                  th:text="${diem.get().diemHoiDong}"></span>
+                            <span th:unless="${diem.isPresent() && diem.get().diemHoiDong != null}">Chưa có</span>
+                        </td>
+                        <td th:with="diem=${diemService.getDiemByPhanCong(phanCong)}">
+                            <span th:if="${diem.isPresent()}">
+                                <span th:if="${diem.get().tinhDiemTrungBinh() != null}" 
+                                      th:text="${diem.get().tinhDiemTrungBinh()}"></span>
+                                <span th:unless="${diem.get().tinhDiemTrungBinh() != null}">Chưa có</span>
+                            </span>
+                            <span th:unless="${diem.isPresent()}">Chưa có</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

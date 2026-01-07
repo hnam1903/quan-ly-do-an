@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <aside class="quick-actions" th:fragment="giangvien-sidebar">
+        <h2>Menu</h2>
+        <div class="action-buttons">
+            <a th:href="@{/giangvien}" class="btn btn-primary">Dashboard</a>
+            <a th:href="@{/giangvien/detai}" class="btn btn-primary">Quản lý đề tài</a>
+            <a th:href="@{/giangvien/dangky}" class="btn btn-primary">Duyệt đăng ký</a>
+            <a th:href="@{/giangvien/tiendo}" class="btn btn-primary">Quản lý tiến độ</a>
+            <a th:href="@{/giangvien/diem}" class="btn btn-primary">Chấm điểm</a>
+        </div>
+    </aside>
+</body>
+</html>
+

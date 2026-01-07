@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề tài - QLDA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/giangvien-sidebar :: giangvien-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <h1 th:text="${deTai.id != null ? 'Sửa đề tài' : 'Thêm đề tài'}"></h1>
+                    
+                    <form th:action="${deTai.id != null ? '/giangvien/detai/' + deTai.id : '/giangvien/detai'}"
+                          th:object="${deTai}" method="post" class="form-container">
+                <div class="form-group">
+                    <label for="tenDeTai">Tên đề tài *</label>
+                    <input type="text" id="tenDeTai" th:field="*{tenDeTai}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="moTa">Mô tả</label>
+                    <textarea id="moTa" th:field="*{moTa}" rows="5"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="yeuCau">Yêu cầu</label>
+                    <textarea id="yeuCau" th:field="*{yeuCau}" rows="5"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="soLuongSinhVien">Số lượng sinh viên *</label>
+                    <input type="number" id="soLuongSinhVien" th:field="*{soLuongSinhVien}" min="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="congNghe">Công nghệ</label>
+                    <input type="text" id="congNghe" th:field="*{congNghe}">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <a th:href="@{/giangvien/detai}" class="btn btn-secondary">Hủy</a>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+

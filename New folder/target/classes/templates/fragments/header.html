@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <nav class="navbar" th:fragment="header">
+        <div class="container">
+            <div class="nav-brand">
+                <a th:href="@{/dashboard}">Quản Lý Đồ Án</a>
+            </div>
+            <div class="nav-menu" sec:authorize="isAuthenticated()">
+                <a th:href="@{/dashboard}">Trang chủ</a>
+                <span sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/admin}">Admin</a>
+                </span>
+                <span sec:authorize="hasRole('GIANGVIEN')">
+                    <a th:href="@{/giangvien}">Giảng viên</a>
+                </span>
+                <span sec:authorize="hasRole('SINHVIEN')">
+                    <a th:href="@{/sinhvien}">Sinh viên</a>
+                </span>
+                <form th:action="@{/logout}" method="post" style="display: inline;">
+                    <button type="submit" class="btn-logout">Đăng xuất</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>
+
+
+

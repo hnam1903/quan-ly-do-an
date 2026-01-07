@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <aside class="quick-actions" th:fragment="admin-sidebar">
+        <h2>Menu</h2>
+        <div class="action-buttons">
+            <a th:href="@{/admin}" class="btn btn-primary">Dashboard</a>
+            <a th:href="@{/admin/users}" class="btn btn-primary">Quản lý người dùng</a>
+            <a th:href="@{/admin/detai}" class="btn btn-primary">Quản lý đề tài</a>
+            <a th:href="@{/admin/phancong}" class="btn btn-primary">Quản lý phân công</a>
+            <a th:href="@{/admin/diem}" class="btn btn-primary">Quản lý điểm</a>
+        </div>
+    </aside>
+</body>
+</html>
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theo dõi đăng ký - QLDA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/sinhvien-sidebar :: sinhvien-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <h1>Theo dõi đăng ký</h1>
+                    
+                    <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Đề tài</th>
+                        <th>Giảng viên</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày đăng ký</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="dangKy : ${dangKys}">
+                        <td th:text="${dangKy.deTai.tenDeTai}"></td>
+                        <td th:text="${dangKy.deTai.giangVien.hoTen}"></td>
+                        <td>
+                            <span class="badge" th:text="${dangKy.trangThai.name()}"></span>
+                        </td>
+                        <td th:text="${#temporals.format(dangKy.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+

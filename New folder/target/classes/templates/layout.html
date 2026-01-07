@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title != null ? title + ' - QLDA' : 'QLDA - Quản Lý Đồ Án'}">QLDA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a th:href="@{/dashboard}">QLDA</a>
+            </div>
+            <div class="nav-menu" sec:authorize="isAuthenticated()">
+                <a th:href="@{/dashboard}">Trang chủ</a>
+                <span sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/admin}">Admin</a>
+                </span>
+                <span sec:authorize="hasRole('GIANGVIEN')">
+                    <a th:href="@{/giangvien}">Giảng viên</a>
+                </span>
+                <span sec:authorize="hasRole('SINHVIEN')">
+                    <a th:href="@{/sinhvien}">Sinh viên</a>
+                </span>
+                <form th:action="@{/logout}" method="post" style="display: inline;">
+                    <button type="submit" class="btn-logout">Đăng xuất</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="main-content">
+        <div class="container">
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+            <div th:if="${message}" class="alert alert-info" th:text="${message}"></div>
+            <div th:replace="${content}"></div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>Website Quản Lý Đồ Án Khoa CNTT</p>
+        </div>
+    </footer>
+</body>
+</html>
+
+
+

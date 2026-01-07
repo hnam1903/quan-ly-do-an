@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đề tài - QLDA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/admin-sidebar :: admin-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <h1>Quản lý đề tài</h1>
+                    
+                    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+                    
+                    <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên đề tài</th>
+                        <th>Giảng viên</th>
+                        <th>Số lượng SV</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="deTai : ${deTais}">
+                        <td th:text="${deTai.id}"></td>
+                        <td th:text="${deTai.tenDeTai}"></td>
+                        <td th:text="${deTai.giangVien.hoTen}"></td>
+                        <td th:text="${deTai.soLuongSinhVien}"></td>
+                        <td>
+                            <span class="badge" th:text="${deTai.trangThai.name()}"></span>
+                        </td>
+                        <td>
+                            <form th:if="${deTai.trangThai.name() == 'CHO_DUYET'}" 
+                                  th:action="@{/admin/detai/{id}/duyet(id=${deTai.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-sm btn-success">Duyệt</button>
+                            </form>
+                            <form th:if="${deTai.trangThai.name() == 'CHO_DUYET'}" 
+                                  th:action="@{/admin/detai/{id}/tuchoi(id=${deTai.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-sm btn-danger">Từ chối</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+

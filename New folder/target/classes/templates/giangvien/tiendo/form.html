@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cập nhật tiến độ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <main class="main-content has-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <div th:replace="~{fragments/giangvien-sidebar :: giangvien-sidebar}"></div>
+                
+                <div class="dashboard-content">
+                    <h1>Cập nhật tiến độ</h1>
+                    
+                    <form th:action="@{/giangvien/tiendo}" th:object="${tienDo}" method="post" class="form-container">
+                <input type="hidden" th:field="*{phanCong.id}"/>
+                
+                <div class="form-group">
+                    <label for="noiDung">Nội dung tiến độ *</label>
+                    <textarea id="noiDung" th:field="*{noiDung}" rows="5" required 
+                              placeholder="Ví dụ: Đề cương xong, Hoàn thành 60%, Đã nộp báo cáo..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nhanXet">Nhận xét</label>
+                    <textarea id="nhanXet" th:field="*{nhanXet}" rows="5" 
+                              placeholder="Nhận xét, phản hồi cho sinh viên..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <a th:href="@{/giangvien/tiendo/phancong/{id}(id=${tienDo.phanCong.id})}" class="btn btn-secondary">Hủy</a>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+
