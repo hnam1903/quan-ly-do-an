@@ -17,6 +17,8 @@
                 <div class="dashboard-content">
                     <h1>Theo dõi tiến độ</h1>
                     
+                    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+                    
                     <div th:if="${phanCongs.isEmpty()}" class="alert alert-info">
                         Bạn chưa có phân công nào.
                     </div>

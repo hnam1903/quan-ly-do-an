@@ -21,6 +21,23 @@
                 <input type="hidden" th:field="*{phanCong.id}"/>
                 
                 <div class="form-group">
+                    <label for="tuan">Tuần thứ mấy *</label>
+                    <select id="tuan" th:field="*{tuan}" class="form-control" required>
+                        <option value="">-- Chọn tuần --</option>
+                        <option th:each="i : ${#numbers.sequence(1, 10)}" 
+                                th:value="${i}" 
+                                th:text="'Tuần ' + ${i}"
+                                th:disabled="${usedWeeks != null && usedWeeks.contains(i) && (tienDo.id == null || (tienDo.tuan != null && tienDo.tuan != i))}"
+                                th:selected="${tienDo.tuan != null && tienDo.tuan == i}">
+                        </option>
+                    </select>
+                    <small class="form-text text-muted">
+
+
+                    </small>
+                </div>
+                
+                <div class="form-group">
                     <label for="noiDung">Nội dung tiến độ *</label>
                     <textarea id="noiDung" th:field="*{noiDung}" rows="5" required 
                               placeholder="Ví dụ: Đề cương xong, Hoàn thành 60%, Đã nộp báo cáo..."></textarea>

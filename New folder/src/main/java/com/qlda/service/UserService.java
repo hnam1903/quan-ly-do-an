@@ -91,7 +91,7 @@ public class UserService {
         user.setRole(request.getRole());
         user.setEmail(request.getEmail());
         user.setActive(true);
-        user.setHoTen("Chưa cập nhật");
+        user.setHoTen(request.getHoTen());
 
         userRepository.save(user);
     }

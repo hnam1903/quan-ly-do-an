@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface TienDoRepository extends JpaRepository<TienDo, Long> {
+    List<TienDo> findByPhanCongOrderByTuanAsc(PhanCong phanCong);
     List<TienDo> findByPhanCongOrderByCreatedAtDesc(PhanCong phanCong);
+    TienDo findByPhanCongAndTuan(PhanCong phanCong, Integer tuan);
 }
 
 

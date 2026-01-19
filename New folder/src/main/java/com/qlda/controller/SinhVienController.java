@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/sinhvien")
@@ -164,11 +166,29 @@ public class SinhVienController {
     }
 
     @GetMapping("/tiendo/phancong/{phancongId}")
-    public String viewTienDoDetail(@PathVariable Long phancongId, Model model) {
+    public String viewTienDoDetail(@PathVariable Long phancongId, Model model, RedirectAttributes redirectAttributes) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        User sinhVien = userService.getUserByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        
         PhanCong phanCong = phanCongService.getPhanCongById(phancongId);
+
+        if (phanCong.getSinhVien() == null || !phanCong.getSinhVien().getId().equals(sinhVien.getId())) {
+            redirectAttributes.addFlashAttribute("error", "Bạn không có quyền xem tiến độ của đề tài này!");
+            return "redirect:/sinhvien/tiendo";
+        }
+
         List<TienDo> tienDos = tienDoService.getTienDoByPhanCong(phanCong);
+
+        Map<Integer, TienDo> tienDoMap = new HashMap<>();
+        for (TienDo tienDo : tienDos) {
+            tienDoMap.put(tienDo.getTuan(), tienDo);
+        }
+        
         model.addAttribute("phanCong", phanCong);
         model.addAttribute("tienDos", tienDos);
+        model.addAttribute("tienDoMap", tienDoMap);
         return "sinhvien/tiendo/detail";
     }
 

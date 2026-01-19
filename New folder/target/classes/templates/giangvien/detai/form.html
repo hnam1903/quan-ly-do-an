@@ -16,9 +16,13 @@
                 
                 <div class="dashboard-content">
                     <h1 th:text="${deTai.id != null ? 'Sửa đề tài' : 'Thêm đề tài'}"></h1>
-                    
-                    <form th:action="${deTai.id != null ? '/giangvien/detai/' + deTai.id : '/giangvien/detai'}"
-                          th:object="${deTai}" method="post" class="form-container">
+
+                    <form th:action="${deTai.id != null}
+                        ? @{/giangvien/detai/{id}(id=${deTai.id})}
+                        : @{/giangvien/detai}"
+                          th:object="${deTai}"
+                          method="post"
+                          class="form-container">
                 <div class="form-group">
                     <label for="tenDeTai">Tên đề tài *</label>
                     <input type="text" id="tenDeTai" th:field="*{tenDeTai}" required>

@@ -18,6 +18,9 @@ public class RegisterRequest {
     @Email(message = "Email không hợp lệ")
     private String email;
 
+    @NotBlank(message = "Họ tên không được để trống")
+    private String hoTen;
+
     public String getUsername() {
         return username;
     }
@@ -48,5 +51,13 @@ public class RegisterRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getHoTen() {
+        return hoTen;
+    }
+
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
     }
 }

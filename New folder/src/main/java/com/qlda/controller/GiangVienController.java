@@ -10,7 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/giangvien")
@@ -91,8 +94,14 @@ public class GiangVienController {
 
     @PostMapping("/detai/{id}")
     public String updateDeTai(@PathVariable Long id, @ModelAttribute DeTai deTai, RedirectAttributes redirectAttributes) {
-        deTai.setId(id);
-        deTaiService.updateDeTai(deTai);
+        DeTai deTai1 = deTaiService.getDeTaiById(id);
+
+        deTai1.setTenDeTai(deTai.getTenDeTai());
+        deTai1.setMoTa(deTai.getMoTa());
+        deTai1.setYeuCau(deTai.getYeuCau());
+        deTai1.setSoLuongSinhVien(deTai.getSoLuongSinhVien());
+        deTai1.setCongNghe(deTai.getCongNghe());
+        deTaiService.updateDeTai(deTai1);
         redirectAttributes.addFlashAttribute("success", "Cập nhật đề tài thành công!");
         return "redirect:/giangvien/detai";
     }
@@ -157,8 +166,15 @@ public class GiangVienController {
     public String listTienDoByPhanCong(@PathVariable Long phancongId, Model model) {
         PhanCong phanCong = phanCongService.getPhanCongById(phancongId);
         List<TienDo> tienDos = tienDoService.getTienDoByPhanCong(phanCong);
+
+        Map<Integer, TienDo> tienDoMap = new HashMap<>();
+        for (TienDo tienDo : tienDos) {
+            tienDoMap.put(tienDo.getTuan(), tienDo);
+        }
+        
         model.addAttribute("phanCong", phanCong);
         model.addAttribute("tienDos", tienDos);
+        model.addAttribute("tienDoMap", tienDoMap);
         return "giangvien/tiendo/detail";
     }
 
@@ -167,7 +183,14 @@ public class GiangVienController {
         PhanCong phanCong = phanCongService.getPhanCongById(phancongId);
         TienDo tienDo = new TienDo();
         tienDo.setPhanCong(phanCong);
+
+        List<TienDo> existingTienDos = tienDoService.getTienDoByPhanCong(phanCong);
+        List<Integer> usedWeeks = existingTienDos.stream()
+                .map(TienDo::getTuan)
+                .collect(Collectors.toList());
+        
         model.addAttribute("tienDo", tienDo);
+        model.addAttribute("usedWeeks", usedWeeks);
         return "giangvien/tiendo/form";
     }
 
